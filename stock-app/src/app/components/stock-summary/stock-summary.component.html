@@ -1,0 +1,114 @@
+<div class="stock-summary-container">
+  <div class="header">
+    <button mat-icon-button (click)="goBack()" class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>Stock Summary</h1>
+  </div>
+
+  <div class="content" *ngIf="!loading && !error">
+    <!-- Stock Header -->
+    <mat-card class="stock-header-card">
+      <mat-card-content>
+        <div class="stock-info">
+          <div class="stock-title">
+            <h2>{{ stockData?.symbol || symbol }}</h2>
+            <p class="company-name">{{ stockData?.name || 'Loading...' }}</p>
+          </div>
+          <div class="stock-price">
+            <div class="current-price">${{ stockData?.price?.toFixed(2) }}</div>
+            <div class="price-change" [ngClass]="getChangeColor()">
+              <span class="change-amount">
+                {{ (stockData?.change || 0) >= 0 ? '+' : '' }}{{ (stockData?.change || 0).toFixed(2) }}
+              </span>
+              <span class="change-percent">
+                ({{ (stockData?.change || 0) >= 0 ? '+' : '' }}{{ (stockData?.changePercent || 0).toFixed(2) }}%)
+              </span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Stock Statistics -->
+    <mat-card class="stats-card">
+      <mat-card-content>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-label">Market Cap</span>
+            <span class="stat-value">${{ formatNumber(stockData?.marketCap || 0) }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Volume</span>
+            <span class="stat-value">{{ formatNumber(stockData?.volume || 0) }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Open</span>
+            <span class="stat-value">${{ stockData?.open?.toFixed(2) }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Previous Close</span>
+            <span class="stat-value">${{ stockData?.previousClose?.toFixed(2) }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Day High</span>
+            <span class="stat-value">${{ stockData?.high?.toFixed(2) }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Day Low</span>
+            <span class="stat-value">${{ stockData?.low?.toFixed(2) }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Price Chart -->
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Price Chart</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="chart-placeholder">
+          <p>Price chart will be displayed here</p>
+          <p>Symbol: {{ symbol }}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Tabs for Historic and Options Data -->
+    <mat-card class="tabs-card">
+      <mat-card-content>
+        <mat-tab-group>
+          <mat-tab label="Historic Data">
+            <div class="tab-placeholder">
+              <p>Historical data will be displayed here</p>
+              <p>Symbol: {{ symbol }}</p>
+            </div>
+          </mat-tab>
+          <mat-tab label="Options Data">
+            <div class="tab-placeholder">
+              <p>Options data will be displayed here</p>
+              <p>Symbol: {{ symbol }}</p>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+    <p>Loading stock data...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="error-container" *ngIf="error">
+    <mat-icon class="error-icon">error</mat-icon>
+    <h3>Error Loading Stock Data</h3>
+    <p>Unable to load data for {{ symbol }}. Please try again.</p>
+    <button mat-raised-button color="primary" (click)="loadStockData()">
+      Retry
+    </button>
+  </div>
+</div> 

@@ -1,0 +1,221 @@
+.stock-summary-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 15px;
+
+  h1 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+}
+
+.back-button {
+  color: #667eea;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stock-header-card {
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  border: none;
+}
+
+.stock-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.stock-title {
+  h2 {
+    margin: 0 0 5px 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+  }
+
+  .company-name {
+    margin: 0;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+  }
+}
+
+.stock-price {
+  text-align: right;
+
+  .current-price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 5px;
+  }
+
+  .price-change {
+    font-size: 1.2rem;
+    font-weight: 600;
+
+    &.positive {
+      color: #27ae60;
+    }
+
+    &.negative {
+      color: #e74c3c;
+    }
+
+    .change-amount {
+      margin-right: 5px;
+    }
+
+    .change-percent {
+      opacity: 0.8;
+    }
+  }
+}
+
+.stats-card {
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  border: none;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  .stat-label {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    font-weight: 500;
+  }
+
+  .stat-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+  }
+}
+
+.chart-card, .tabs-card {
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  border: none;
+}
+
+.loading-container, .error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+  gap: 20px;
+
+  p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+  }
+}
+
+.error-container {
+  .error-icon {
+    font-size: 4rem;
+    color: #e74c3c;
+    width: 4rem;
+    height: 4rem;
+  }
+
+  h3 {
+    color: #2c3e50;
+    margin: 0;
+  }
+}
+
+// Material tabs customization
+::ng-deep .mat-mdc-tab-group {
+  .mat-mdc-tab-header {
+    border-bottom: 2px solid #e0e6ed;
+  }
+
+  .mat-mdc-tab-label {
+    font-weight: 600;
+    color: #7f8c8d;
+    
+    &.mat-mdc-tab-label-active {
+      color: #667eea;
+    }
+  }
+
+  .mat-mdc-ink-bar {
+    background-color: #667eea;
+  }
+}
+
+.chart-placeholder, .tab-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  text-align: center;
+  color: #7f8c8d;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin: 20px 0;
+
+  p {
+    margin: 5px 0;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .stock-summary-container {
+    padding: 15px;
+  }
+
+  .stock-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .stock-price {
+    text-align: center;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+  }
+
+  .stock-title h2,
+  .stock-price .current-price {
+    font-size: 2rem;
+  }
+} 

@@ -1,0 +1,156 @@
+.historic-data-container {
+  padding: 20px 0;
+}
+
+.header {
+  margin-bottom: 20px;
+  text-align: center;
+
+  h3 {
+    margin: 0 0 5px 0;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    color: #7f8c8d;
+    font-size: 1rem;
+  }
+}
+
+.historic-table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+// Table header styling
+::ng-deep .mat-mdc-header-cell {
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e0e6ed;
+}
+
+// Table row styling
+::ng-deep .mat-mdc-row {
+  &:hover {
+    background-color: #f8f9fa;
+  }
+
+  &:nth-child(even) {
+    background-color: #fafbfc;
+  }
+}
+
+// Table cell styling
+::ng-deep .mat-mdc-cell {
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: #2c3e50;
+  border-bottom: 1px solid #e0e6ed;
+}
+
+.close-data {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.close-price {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.change-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  gap: 1px;
+
+  &.positive {
+    color: #27ae60;
+  }
+
+  &.negative {
+    color: #e74c3c;
+  }
+
+  .change-amount {
+    font-weight: 600;
+  }
+
+  .change-percent {
+    opacity: 0.8;
+  }
+}
+
+.loading-container, .error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  text-align: center;
+  gap: 20px;
+
+  p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+  }
+}
+
+.error-container {
+  .error-icon {
+    font-size: 3rem;
+    color: #e74c3c;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  h3 {
+    color: #2c3e50;
+    margin: 0;
+  }
+}
+
+// Paginator styling
+::ng-deep .mat-mdc-paginator {
+  background-color: #f8f9fa;
+  border-top: 1px solid #e0e6ed;
+}
+
+@media (max-width: 768px) {
+  .historic-data-container {
+    padding: 15px 0;
+  }
+
+  .header h3 {
+    font-size: 1.3rem;
+  }
+
+  // Make table scrollable on mobile
+  .historic-table {
+    overflow-x: auto;
+    display: block;
+  }
+
+  ::ng-deep .mat-mdc-cell {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  .close-data {
+    .close-price {
+      font-size: 0.9rem;
+    }
+
+    .change-info {
+      font-size: 0.7rem;
+    }
+  }
+} 

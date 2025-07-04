@@ -1,0 +1,87 @@
+<div class="historic-data-container">
+  <div class="header">
+    <h3>Historical Data for {{ symbol }}</h3>
+    <p>Daily stock prices and trading volume</p>
+  </div>
+
+  <div class="content" *ngIf="!loading && !error">
+    <mat-card>
+      <mat-card-content>
+        <table mat-table [dataSource]="dataSource" class="historic-table">
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element"> {{ formatDate(element.date) }} </td>
+          </ng-container>
+
+          <!-- Open Column -->
+          <ng-container matColumnDef="open">
+            <th mat-header-cell *matHeaderCellDef> Open </th>
+            <td mat-cell *matCellDef="let element"> ${{ element.open.toFixed(2) }} </td>
+          </ng-container>
+
+          <!-- High Column -->
+          <ng-container matColumnDef="high">
+            <th mat-header-cell *matHeaderCellDef> High </th>
+            <td mat-cell *matCellDef="let element"> ${{ element.high.toFixed(2) }} </td>
+          </ng-container>
+
+          <!-- Low Column -->
+          <ng-container matColumnDef="low">
+            <th mat-header-cell *matHeaderCellDef> Low </th>
+            <td mat-cell *matCellDef="let element"> ${{ element.low.toFixed(2) }} </td>
+          </ng-container>
+
+          <!-- Close Column -->
+          <ng-container matColumnDef="close">
+            <th mat-header-cell *matHeaderCellDef> Close </th>
+            <td mat-cell *matCellDef="let element"> 
+              <div class="close-data">
+                <span class="close-price">${{ element.close.toFixed(2) }}</span>
+                <div class="change-info" [ngClass]="getChangeColor(element.close, element.open)">
+                  <span class="change-amount">
+                    {{ getChange(element.close, element.open) >= 0 ? '+' : '' }}{{ getChange(element.close, element.open).toFixed(2) }}
+                  </span>
+                  <span class="change-percent">
+                    ({{ getChangePercent(element.close, element.open) >= 0 ? '+' : '' }}{{ getChangePercent(element.close, element.open).toFixed(2) }}%)
+                  </span>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Volume Column -->
+          <ng-container matColumnDef="volume">
+            <th mat-header-cell *matHeaderCellDef> Volume </th>
+            <td mat-cell *matCellDef="let element"> {{ formatNumber(element.volume) }} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator 
+          [pageSizeOptions]="[10, 25, 50]"
+          showFirstLastButtons
+          aria-label="Select page of historic data">
+        </mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+    <p>Loading historical data...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="error-container" *ngIf="error">
+    <mat-icon class="error-icon">error</mat-icon>
+    <h3>Error Loading Historical Data</h3>
+    <p>Unable to load historical data for {{ symbol }}. Please try again.</p>
+    <button mat-raised-button color="primary" (click)="loadHistoricData()">
+      Retry
+    </button>
+  </div>
+</div> 

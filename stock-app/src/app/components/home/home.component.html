@@ -1,0 +1,49 @@
+<div class="home-container">
+  <div class="hero-section">
+    <div class="content">
+      <h1 class="title">DASH-GTD Finance Dashboard</h1>
+      <p class="subtitle">Get real-time, historic & options stock data & chart insights</p>
+      
+      <div class="search-container">
+        <mat-card class="search-card">
+          <mat-card-content>
+            <div class="search-box">
+              <mat-icon class="search-icon">search</mat-icon>
+              <input
+                matInput
+                [(ngModel)]="searchQuery"
+                placeholder="Search by ticker symbol or company name (e.g., AAPL, Apple)"
+                (keyup)="onKeyPress($event)"
+                class="search-input"
+              />
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="searchStock()"
+                class="search-button"
+                [disabled]="!searchQuery.trim()"
+              >
+                Search
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="popular-stocks">
+        <h3>Popular Stocks</h3>
+        <div class="stock-grid">
+          <button
+            mat-stroked-button
+            *ngFor="let stock of popularStocks"
+            (click)="searchQuery = stock.symbol; searchStock()"
+            class="stock-button"
+          >
+            <span class="stock-symbol">{{ stock.symbol }}</span>
+            <span class="stock-name">{{ stock.name }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

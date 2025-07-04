@@ -1,0 +1,122 @@
+<div class="options-data-container">
+  <div class="header">
+    <h3>Options Data for {{ symbol }}</h3>
+    <p>Call and put options with expiration dates and strike prices</p>
+  </div>
+
+  <div class="content" *ngIf="!loading && !error">
+    <mat-card>
+      <mat-card-content>
+        <mat-tab-group>
+          <!-- Call Options Tab -->
+          <mat-tab label="Call Options">
+            <div class="tab-content">
+              <table mat-table [dataSource]="callDataSource" class="options-table">
+                <!-- Expiration Date Column -->
+                <ng-container matColumnDef="expirationDate">
+                  <th mat-header-cell *matHeaderCellDef> Expiration </th>
+                  <td mat-cell *matCellDef="let element"> {{ formatDate(element.expirationDate) }} </td>
+                </ng-container>
+
+                <!-- Strike Price Column -->
+                <ng-container matColumnDef="strikePrice">
+                  <th mat-header-cell *matHeaderCellDef> Strike Price </th>
+                  <td mat-cell *matCellDef="let element"> ${{ element.strikePrice.toFixed(2) }} </td>
+                </ng-container>
+
+                <!-- Call Price Column -->
+                <ng-container matColumnDef="callPrice">
+                  <th mat-header-cell *matHeaderCellDef> Call Price </th>
+                  <td mat-cell *matCellDef="let element"> {{ formatPrice(element.callPrice) }} </td>
+                </ng-container>
+
+                <!-- Call Volume Column -->
+                <ng-container matColumnDef="callVolume">
+                  <th mat-header-cell *matHeaderCellDef> Volume </th>
+                  <td mat-cell *matCellDef="let element"> {{ formatNumber(element.callVolume) }} </td>
+                </ng-container>
+
+                <!-- Call Open Interest Column -->
+                <ng-container matColumnDef="callOpenInterest">
+                  <th mat-header-cell *matHeaderCellDef> Open Interest </th>
+                  <td mat-cell *matCellDef="let element"> {{ formatNumber(element.callOpenInterest) }} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="callDisplayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: callDisplayedColumns;"></tr>
+              </table>
+
+              <mat-paginator 
+                [pageSizeOptions]="[5, 10, 25]"
+                showFirstLastButtons
+                aria-label="Select page of call options">
+              </mat-paginator>
+            </div>
+          </mat-tab>
+
+          <!-- Put Options Tab -->
+          <mat-tab label="Put Options">
+            <div class="tab-content">
+              <table mat-table [dataSource]="putDataSource" class="options-table">
+                <!-- Expiration Date Column -->
+                <ng-container matColumnDef="expirationDate">
+                  <th mat-header-cell *matHeaderCellDef> Expiration </th>
+                  <td mat-cell *matCellDef="let element"> {{ formatDate(element.expirationDate) }} </td>
+                </ng-container>
+
+                <!-- Strike Price Column -->
+                <ng-container matColumnDef="strikePrice">
+                  <th mat-header-cell *matHeaderCellDef> Strike Price </th>
+                  <td mat-cell *matCellDef="let element"> ${{ element.strikePrice.toFixed(2) }} </td>
+                </ng-container>
+
+                <!-- Put Price Column -->
+                <ng-container matColumnDef="putPrice">
+                  <th mat-header-cell *matHeaderCellDef> Put Price </th>
+                  <td mat-cell *matCellDef="let element"> {{ formatPrice(element.putPrice) }} </td>
+                </ng-container>
+
+                <!-- Put Volume Column -->
+                <ng-container matColumnDef="putVolume">
+                  <th mat-header-cell *matHeaderCellDef> Volume </th>
+                  <td mat-cell *matCellDef="let element"> {{ formatNumber(element.putVolume) }} </td>
+                </ng-container>
+
+                <!-- Put Open Interest Column -->
+                <ng-container matColumnDef="putOpenInterest">
+                  <th mat-header-cell *matHeaderCellDef> Open Interest </th>
+                  <td mat-cell *matCellDef="let element"> {{ formatNumber(element.putOpenInterest) }} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="putDisplayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: putDisplayedColumns;"></tr>
+              </table>
+
+              <mat-paginator 
+                [pageSizeOptions]="[5, 10, 25]"
+                showFirstLastButtons
+                aria-label="Select page of put options">
+              </mat-paginator>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+    <p>Loading options data...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="error-container" *ngIf="error">
+    <mat-icon class="error-icon">error</mat-icon>
+    <h3>Error Loading Options Data</h3>
+    <p>Unable to load options data for {{ symbol }}. Please try again.</p>
+    <button mat-raised-button color="primary" (click)="loadOptionsData()">
+      Retry
+    </button>
+  </div>
+</div> 
